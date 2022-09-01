@@ -54,9 +54,9 @@ router.post(
         return uploadedMedia;
       });
 
-      const cloudMedias = await Promise.all(uploadedMedias);
+      const cloudMedia = await Promise.all(uploadedMedias);
 
-      const wordEntity = await wordService.create(cloudMedias, req.body);
+      const wordEntity = await wordService.create(cloudMedia, req.body);
       res.status(OK).send(wordEntity.toResponse());
     } catch (error) {
       res.send(error);
