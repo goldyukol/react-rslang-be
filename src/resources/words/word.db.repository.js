@@ -1,6 +1,7 @@
 const Word = require('./word.model');
-const { NOT_FOUND_ERROR } = require('../../errors/appErrors');
+const { NOT_FOUND_ERROR, ENTITY_EXISTS } = require('../../errors/appErrors');
 const ENTITY_NAME = 'word';
+const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 
 const getAll = async conditions => {
   const { group, page } = conditions;
@@ -16,4 +17,16 @@ const get = async id => {
   return word;
 };
 
-module.exports = { getAll, get };
+const create = async word => {
+  try {
+    return await Word.create(word);
+  } catch (err) {
+    if (err.code === MONGO_ENTITY_EXISTS_ERROR_CODE) {
+      throw new ENTITY_EXISTS(`Entity with this ${ENTITY_NAME} exists`);
+    } else {
+      throw err;
+    }
+  }
+};
+
+module.exports = { getAll, get, create };

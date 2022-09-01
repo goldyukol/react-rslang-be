@@ -4,19 +4,24 @@ const { addMethods } = require('../../utils/toResponse');
 
 const WordsSchema = new Schema(
   {
-    group: { type: Number, required: true },
-    page: { type: Number, required: true },
-    word: { type: String, required: true, max: 100 },
-    image: { type: String, required: false, max: 150 },
-    audio: { type: String, required: false, max: 150 },
-    audioMeaning: { type: String, required: false, max: 150 },
-    audioExample: { type: String, required: false, max: 150 },
-    textMeaning: { type: String, required: false, max: 300 },
-    textExample: { type: String, required: false, max: 300 },
-    transcription: { type: String, required: false, max: 100 },
-    wordTranslate: String,
-    textMeaningTranslate: String,
-    textExampleTranslate: String
+    group: {
+      type: Number,
+      required: true,
+      unique: true,
+      min: 0
+    },
+    page: { type: Number, required: true, min: 0 },
+    word: { type: String, required: true, max: 150, min: 1, unique: true },
+    image: { type: String, required: true, max: 150 },
+    audio: { type: String, required: true, max: 150 },
+    audioMeaning: { type: String, required: true, max: 150 },
+    audioExample: { type: String, required: true, max: 150 },
+    textMeaning: { type: String, required: true, max: 300, min: 1 },
+    textExample: { type: String, required: true, max: 300, min: 1 },
+    transcription: { type: String, required: true, max: 150, min: 1 },
+    wordTranslate: { type: String, required: true, max: 150, min: 1 },
+    textMeaningTranslate: { type: String, required: true, max: 300, min: 1 },
+    textExampleTranslate: { type: String, required: true, max: 300, min: 1 }
   },
   { collection: 'words' }
 );

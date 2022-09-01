@@ -28,6 +28,33 @@ const optionalScheme = Joi.object()
 
 const schemas = {
   id: Joi.object({ id: Joi.objectId() }),
+  wordCreate: Joi.object()
+    .options({ abortEarly: false, allowUnknown: true })
+    .keys({
+      group: Joi.number().min(0),
+      page: Joi.number().min(0),
+      word: Joi.string()
+        .min(1)
+        .max(150),
+      textMeaning: Joi.string()
+        .min(1)
+        .max(300),
+      textExample: Joi.string()
+        .min(1)
+        .max(300),
+      transcription: Joi.string()
+        .min(1)
+        .max(150),
+      textExampleTranslate: Joi.string()
+        .min(1)
+        .max(300),
+      textMeaningTranslate: Joi.string()
+        .min(1)
+        .max(300),
+      wordTranslate: Joi.string()
+        .min(1)
+        .max(150)
+    }),
   wordId: Joi.object({ id: Joi.objectId(), wordId: Joi.objectId() }),
   user: Joi.object()
     .options({ abortEarly: false, allowUnknown: true })
