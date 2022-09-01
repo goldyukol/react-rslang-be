@@ -8,4 +8,10 @@ const get = async wordId => {
   return word;
 };
 
-module.exports = { getAll, get };
+const create = async (cloudAudios, wordData) => {
+  const word = await wordRepo.create(wordData);
+
+  return word;
+};
+
+module.exports = { getAll, get, create };
