@@ -8,7 +8,7 @@ A backend part of [React RS.School task](https://github.com/rolling-scopes-schoo
 ## Деплой
 
 Сделайте форк репозитория и следуйте [инструкции по деплою и настройке приложения](https://github.com/rolling-scopes-school/-LearnWords-react/wiki).
-
+    
 ## Локальный запуск
 1. Создайте файл ```.env``` в корне приложения
 2. В созданном файе укажите переменные окружения:  
