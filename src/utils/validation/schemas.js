@@ -31,8 +31,6 @@ const schemas = {
   wordCreate: Joi.object()
     .options({ abortEarly: false, allowUnknown: true })
     .keys({
-      group: Joi.number().min(0),
-      page: Joi.number().min(0),
       word: Joi.string()
         .min(1)
         .max(150),

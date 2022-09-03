@@ -42,25 +42,21 @@ router.post(
   validator(wordCreate, 'body'),
   loader.array('media', 4),
   async (req, res) => {
-    try {
-      const uploadedMedias = req.files.map(async fileItem => {
-        const uploadedMedia = await cloudinary.uploader.upload(fileItem.path, {
-          resource_type: fileItem.mimetype === 'audio/mpeg' ? 'video' : 'image'
-        });
-
-        fs.unlink(fileItem.path, err => {
-          if (err) console.log(err);
-        });
-        return uploadedMedia;
+    const uploadedMedias = req.files.map(async fileItem => {
+      const uploadedMedia = await cloudinary.uploader.upload(fileItem.path, {
+        resource_type: fileItem.mimetype === 'audio/mpeg' ? 'video' : 'image'
       });
 
-      const cloudMedia = await Promise.all(uploadedMedias);
+      fs.unlink(fileItem.path, err => {
+        if (err) console.log(err);
+      });
+      return uploadedMedia;
+    });
 
-      const wordEntity = await wordService.create(cloudMedia, req.body);
-      res.status(OK).send(wordEntity.toResponse());
-    } catch (error) {
-      res.send(error);
-    }
+    const cloudMedia = await Promise.all(uploadedMedias);
+
+    const wordEntity = await wordService.create(cloudMedia, req.body);
+    res.status(OK).send(wordEntity.toResponse());
   }
 );
 
