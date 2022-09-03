@@ -15,8 +15,7 @@ function isOpenPath(path) {
   return (
     ALLOWED_PATHS.includes(path) ||
     DOC_PATH_REGEX.test(path) ||
-    DOC_PATH_RESOURCES_REGEX.test(path) ||
-    WORDS_PATH_REGEX.test(path)
+    DOC_PATH_RESOURCES_REGEX.test(path)
   );
 }
 
@@ -26,6 +25,10 @@ const checkAuthentication = (req, res, next) => {
   }
 
   if (req.path === USERS_PATH && req.method === 'POST') {
+    return next();
+  }
+
+  if (WORDS_PATH_REGEX.test(req.path) && req.method === 'GET') {
     return next();
   }
 
