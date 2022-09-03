@@ -19,7 +19,7 @@ const get = async id => {
 
 const create = async word => {
   try {
-    return await Word.create(word);
+    return await Word.create({ ...word, group: 6, page: 0 });
   } catch (err) {
     if (err.code === MONGO_ENTITY_EXISTS_ERROR_CODE) {
       throw new ENTITY_EXISTS(`Entity with this ${ENTITY_NAME} exists`);
