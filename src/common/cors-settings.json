@@ -1,0 +1,13 @@
+{
+  "origin": "*",
+  "methods": ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+  "allowedHeaders": [
+    "Accept",
+    "Content-Length",
+    "Content-Type",
+    "Authorization",
+    "boundary"
+  ],
+  "credentials": false,
+  "preflightContinue": false
+}
