@@ -23,14 +23,14 @@ const errorHandler = require('./errors/errorHandler');
 const checkAuthentication = require('./resources/authentication/checkAuthentication');
 const { userIdValidator } = require('./utils/validation/validator');
 
-// const corsSettings = require('./common/cors-settings.json');
+const corsSettings = require('./common/cors-settings.json');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
 app.use(helmet());
 
-app.use(cors());
+app.use(cors(corsSettings));
 app.use(express.json());
 
 app.use('/files', express.static(path.join(__dirname, '../files')));
