@@ -5,6 +5,7 @@ const swaggerUI = require('swagger-ui-express');
 const path = require('path');
 const YAML = require('yamljs');
 const morgan = require('morgan');
+const cors = require('cors');
 const helmet = require('helmet');
 require('express-async-errors');
 const { NOT_FOUND } = require('http-status-codes');
@@ -22,22 +23,14 @@ const errorHandler = require('./errors/errorHandler');
 const checkAuthentication = require('./resources/authentication/checkAuthentication');
 const { userIdValidator } = require('./utils/validation/validator');
 
+const corsSettings = require('./common/cors-settings.json');
+
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
 app.use(helmet());
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'Content-Type',
-    'Authorization'
-  );
-  next();
-});
-
+app.use(cors(corsSettings));
 app.use(express.json());
 
 app.use('/files', express.static(path.join(__dirname, '../files')));
